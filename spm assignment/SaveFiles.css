@@ -1,0 +1,366 @@
+body {
+    border: none;
+    margin: 0;
+    background-color: hsl(0, 0%, 0%);
+    overflow: hidden;
+}
+
+.img-container {
+    position: relative;
+    text-align: center;
+    margin-left: -50px;
+}
+
+.img1 {
+    width: 100%;
+    height: 80%;
+    filter: blur(3px);
+    user-select: all;
+    -webkit-user-drag: none;
+}
+
+.overlay {
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+    text-align: center;
+    align-items: center;
+}
+
+.item6 {
+    font-family: "Archivo Black", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+    color: transparent;
+    font-size: 70px;
+    margin-top: -700px;
+    margin-left: -10px;
+    text-align: center;
+    align-items: center;
+    background-image: url(stone-tiles-texture-cartoon-style_1639-26613.jpg);
+    background-size: cover;
+    background-position: center;
+    background-clip: border-box;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.SaveFile1{
+    position: absolute;
+    background-color: hsl(47, 85%, 51%);
+    border: 1px solid black;
+    box-shadow: 1px 1px 3px grey;
+    height: 400px;
+    width: 300px;
+    margin-left: -250px;
+    border-radius: 50px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.SaveFile2{
+    position: absolute;
+    background-color: hsl(47, 85%, 51%);
+    border: 1px solid black;
+    box-shadow: 1px 1px 3px grey;
+    height: 400px;
+    width: 300px;
+    margin-left: 125px;
+    border-radius: 50px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.SaveFile3{
+    position: absolute;
+    background-color: hsl(47, 85%, 51%);
+    border: 1px solid black;
+    box-shadow: 1px 1px 3px grey;
+    height: 400px;
+    width: 300px;
+    margin-left: 500px;
+    border-radius: 50px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.SaveFile1:hover, .SaveFile2:hover, .SaveFile3:hover{
+    scale: 1.03;
+    box-shadow: 2px 2px 5px grey;
+}
+
+.SaveFile1:active, .SaveFile2:active, .SaveFile3:active{
+    scale: 1.04;
+    box-shadow: 3px 3px 7px grey;
+}
+
+.SaveFile1.selected, .SaveFile2.selected, .SaveFile3.selected{
+    box-shadow: 4px 4px 9px grey;
+    scale: 1.05;
+}
+
+.Back{
+    position: absolute;
+    width: 250px;
+    height: 75px;
+    border-radius: 60px;
+    background-color: hsl(47, 85%, 51%);
+    border: 1px solid black;
+    box-shadow: 1px 1px 3px grey;
+    bottom: 60px;
+    left: -450px;
+    line-height: 50px;
+    font-size: larger;
+    font-weight: bolder;
+    text-decoration: none;
+    color: black;
+}
+
+.Back:hover{
+    scale: 1.05;
+    box-shadow: 2px 2px 5px gray;
+}
+
+.Back:active{
+    scale: 1.1;
+    box-shadow: 3px 3px 7px gray;
+}
+
+.Continue{
+    position: absolute;
+    width: 250px;
+    height: 75px;
+    border-radius: 60px;
+    background-color: hsl(47, 85%, 51%);
+    border: 1px solid black;
+    box-shadow: 1px 1px 3px grey;
+    bottom: 60px;
+    margin-left: -115px;
+    line-height: 50px;
+    font-size: larger;
+    font-weight: bolder;
+    visibility: hidden;
+    text-decoration: none;
+    color: black;
+}
+
+.Continue.show{
+    visibility: visible;
+}
+
+.Continue:hover{
+    scale: 1.05;
+    box-shadow: 2px 2px 5px gray;
+}
+
+.Continue:active{
+    scale: 1.1;
+    box-shadow: 3px 3px 7px gray;
+}
+
+/*.OptionButtons{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    margin-top: 50px;
+}
+
+
+.newA {
+    position: fixed;
+    width: 60%;
+    background-image: url(stone-tiles-texture-cartoon-style_1639-26613.jpg);
+    color: darkgrey;
+    font-size: larger;
+    height: 7vh;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 900;
+    font-size: 20px;
+    line-height: 50px;
+    border-radius: 30px;
+    z-index: 10;
+    box-shadow: 1px 1px 3px white;
+    transition: margin-top 0.5s ease;
+}
+
+.newA a{
+    text-decoration: none;
+    color: darkgrey;
+}
+
+.newA:hover {
+    color: hsl(0, 0%, 60%);
+    background-image: url(hover2.jpg);
+    transform: scale(1.1);
+}
+
+.newA:active {
+    color: hsl(0, 0%, 55%);
+    background-image: url(stone-tiles-texture-cartoon-style_1639-26613_hover.jpg);
+}
+
+.newF {
+    position: fixed;
+    width: 60%;
+    background-image: url(stone-tiles-texture-cartoon-style_1639-26613.jpg);
+    color: darkgrey;
+    font-size: larger;
+    height: 7vh;
+    text-align: center;
+    margin-top: 150px;
+    cursor: pointer;
+    font-weight: 900;
+    font-size: 20px;
+    border-radius: 30px;
+    line-height: 50px;
+    z-index: 10;
+    box-shadow: 1px 1px 3px white;
+    transition: margin-top 0.5s ease;
+}
+
+.newF a{
+    text-decoration: none;
+    color: darkgrey;
+}
+
+.newF:hover {
+    color: hsl(0, 0%, 60%);
+    background-image: url(hover2.jpg);
+    transform: scale(1.1);
+}
+
+.newF:active {
+    color: hsl(0, 0%, 55%);
+    background-image: url(stone-tiles-texture-cartoon-style_1639-26613_hover.jpg);
+}
+
+.LS {
+    position: fixed;
+    width: 60%;
+    background-image: url(stone-tiles-texture-cartoon-style_1639-26613.jpg);
+    color: darkgrey;
+    font-size: larger;
+    height: 7vh;
+    text-align: center;
+    margin-top: 300px;
+    cursor: pointer;
+    font-weight: 900;
+    font-size: 20px;
+    border-radius: 30px;
+    line-height: 50px;
+    z-index: 10;
+    box-shadow: 1px 1px 3px white;
+    transition: margin-top 0.5s ease;
+}
+
+.LS a{
+    text-decoration: none;
+    color: darkgrey;
+}
+
+.LS:hover {
+    color: hsl(0, 0%, 60%);
+    background-image: url(hover2.jpg);
+    transform: scale(1.1);
+}
+
+.LS:active {
+    color: hsl(0, 0%, 55%);
+    background-image: url(stone-tiles-texture-cartoon-style_1639-26613_hover.jpg);
+}
+
+.Exit {
+    position: fixed;
+    width: 60%;
+    background-image: url(stone-tiles-texture-cartoon-style_1639-26613.jpg);
+    color: darkgrey;
+    font-size: larger;
+    height: 7vh;
+    text-align: center;
+    margin-top: 450px;
+    cursor: pointer;
+    font-weight: 900;
+    font-size: 20px;
+    line-height: 50px;
+    border-radius: 30px;
+    z-index: 10;
+    box-shadow: 1px 1px 3px white;
+    transition: margin-top 0.5s ease;
+}
+
+.Exit a{
+    text-decoration: none;
+    color: darkgrey;
+}
+
+.Exit:hover {
+    color: hsl(0, 0%, 60%);
+    background-image: url(hover2.jpg);
+    transform: scale(1.1);
+}
+
+.Exit:active {
+    color: hsl(0, 0%, 55%);
+    background-image: url(stone-tiles-texture-cartoon-style_1639-26613_hover.jpg);
+}*/
+
+.setting {
+    position: fixed;
+    margin-left: 470px;
+    margin-top: 200px;
+    scale: 0.12;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.setting:hover {
+    transform: scale(1.2);
+}
+
+.setting-window {
+    display: inline-block;
+    background-color: rgb(231, 160, 26);
+    width: 50%;
+    border-radius: 30px;
+    font-size: larger;
+    height: 55vh;
+    position: fixed;
+    margin-left: 450px;
+    margin-top: -50px;
+    z-index: 9;
+    caret-color: white;
+    padding-left: 30px;
+    padding-right: 30px;
+    visibility: hidden;
+    border: 1px solid black;
+}
+
+.setting-window.show {
+    visibility: visible;
+    z-index: 10;
+}
+
+.p1 {
+    text-align: left;
+    font-weight: 300;
+    font-size: 25px;
+}
+
+.audio1{
+    display: block;
+    margin-left: -10000px;
+    z-index: 1;
+}
+
+.volumeControl{
+    margin-left: -15px;
+    width: 250px;
+    border: 1px solid black;
+}
