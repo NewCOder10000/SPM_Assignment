@@ -3,33 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ngee Ann City Game</title>
+    <title>Ngee Ann City - Free Play Mode</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="main-menu">
-        <h1>Main Menu</h1>
-        <button id="start-new-game">Start New Free Play Game</button>
-        <button id="load-game">Load Saved Game</button>
-        <button id="display-high-scores">Display High Scores</button>
-        <button id="exit-game">Exit Game</button>
-    </div>
-    <div id="game" style="display:none;">
-        <h1>Ngee Ann City Game</h1>
-        <div id="game-status">
-            <p id="turn-number"></p>
-            <p id="coins"></p>
-            <p id="score"></p>
-            <p id="profit"></p>
-            <p id="upkeep"></p>
+    <div id="game-container">
+        <div id="game-info">
+            <p>Coin: <span id="coins">Infinity</span></p>
+            <p>Turn: <span id="turn">0</span></p>
+            <p>Score: <span id="score">0</span></p>
+            <p>Profit: <span id="profit">0</span></p>
+            <p>Upkeep: <span id="upkeep">0</span></p>
+        </div>
+        <div id="building-selection">
+            <button onclick="selectBuilding('R')"><img src="icon/residential.png" alt="Residential"></button>
+            <button onclick="selectBuilding('I')"><img src="icon/industry.png" alt="Industry"></button>
+            <button onclick="selectBuilding('C')"><img src="icon/commercial.png" alt="Commercial"></button>
+            <button onclick="selectBuilding('O')"><img src="icon/park.png" alt="Park"></button>
+            <button onclick="selectBuilding('*')"><img src="icon/road.png" alt="Road"></button>
+            <button onclick="enableDemolishMode()"><img src="icon/shovel.png" alt="Shovel"></button>
+            <button onclick="exitToMainMenu()">Exit to Main Menu</button>  <!--main menu or save -->
         </div>
         <div id="game-board"></div>
-        <div id="game-menu">
-            <button id="build-building">Build a Building</button>
-            <button id="demolish-building">Demolish a Building</button>
-            <button id="save-game">Save Game</button>
-            <button id="exit-to-main-menu">Exit to Main Menu</button>
-        </div>
+        
     </div>
     <script src="script.js"></script>
 </body>

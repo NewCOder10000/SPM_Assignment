@@ -1,173 +1,286 @@
-class NgeeAnnCityGame {
-    constructor() {
-        this.boardSize = 5;
-        this.board = Array.from({ length: this.boardSize }, () => Array(this.boardSize).fill(''));
-        this.coins = Infinity;
-        this.turnNumber = 0;
-        this.score = 0;
-        this.profit = 0;
-        this.upkeep = 0;
-        this.highScores = this.loadHighScores();
-        this.expansionCount = 0;
-    }
+let gridSize = 5;
+let coins = Infinity;
+let score = 0;
+let profit = 0;
+let upkeep = 0;
+let turn = 0;
+let lossCounter = 0;
+let selectedBuilding = null;
+let demolishMode = false;
+let grid = Array(gridSize).fill().map(() => Array(gridSize).fill(''));
 
-    loadHighScores() {
-        return JSON.parse(localStorage.getItem('highScores')) || [];
-    }
+document.addEventListener("DOMContentLoaded", () => {
+    createGrid();
+    updateGameInfo();
+});
 
-    saveHighScores() {
-        localStorage.setItem('highScores', JSON.stringify(this.highScores));
-    }
+function createGrid() {
+    const gameBoard = document.getElementById('game-board');
+    gameBoard.style.gridTemplateColumns = `repeat(${gridSize}, 50px)`;
+    gameBoard.innerHTML = '';
+    for (let i = 0; i < gridSize; i++) {
+        for (let j = 0; j < gridSize; j++) {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+            cell.id = `cell-${i}-${j}`;
+            cell.onclick = () => (demolishMode ? demolishBuilding(i, j) : placeBuilding(i, j));
+            gameBoard.appendChild(cell);
 
-    saveGame() {
-        const data = {
-            board: this.board,
-            coins: this.coins,
-            turnNumber: this.turnNumber,
-            score: this.score,
-            profit: this.profit,
-            upkeep: this.upkeep,
-            expansionCount: this.expansionCount
-        };
-        localStorage.setItem('saveGame', JSON.stringify(data));
-        alert("Game saved.");
-    }
-
-    loadGame() {
-        const data = JSON.parse(localStorage.getItem('saveGame'));
-        if (data) {
-            this.board = data.board;
-            this.boardSize = this.board.length;
-            this.coins = data.coins;
-            this.turnNumber = data.turnNumber;
-            this.score = data.score;
-            this.profit = data.profit;
-            this.upkeep = data.upkeep;
-            this.expansionCount = data.expansionCount;
-            this.updateGameStatus();
-            this.renderBoard();
-        } else {
-            alert("No saved game found.");
-        }
-    }
-
-    startNewGame() {
-        this.constructor();
-        document.getElementById('main-menu').style.display = 'none';
-        document.getElementById('game').style.display = 'block';
-        this.updateGameStatus();
-        this.renderBoard();
-    }
-
-    updateGameStatus() {
-        document.getElementById('turn-number').innerText = `Turn: ${this.turnNumber}`;
-        document.getElementById('coins').innerText = `Coins: ${this.coins}`;
-        document.getElementById('score').innerText = `Score: ${this.score}`;
-        document.getElementById('profit').innerText = `Profit: ${this.profit}`;
-        document.getElementById('upkeep').innerText = `Upkeep: ${this.upkeep}`;
-    }
-
-    expandCity() {
-        const newSize = this.boardSize + 10;
-        const newBoard = Array.from({ length: newSize }, () => Array(newSize).fill(''));
-        for (let i = 0; i < this.boardSize; i++) {
-            for (let j = 0; j < this.boardSize; j++) {
-                newBoard[i][j] = this.board[i][j];
-            }
-        }
-        this.board = newBoard;
-        this.boardSize = newSize;
-        this.expansionCount += 1;
-        alert(`City expanded to ${this.boardSize}x${this.boardSize}.`);
-    }
-
-    buildBuilding() {
-        const buildingType = prompt("Enter building type (R, I, C, O, *):");
-        if (!['R', 'I', 'C', 'O', '*'].includes(buildingType)) {
-            alert("Invalid building type.");
-            return;
-        }
-        const coordinates = prompt("Enter coordinates (x y):").split(' ').map(Number);
-        const [x, y] = coordinates;
-        if (0 <= x && x < this.boardSize && 0 <= y && y < this.boardSize && !this.board[x][y]) {
-            this.board[x][y] = buildingType;
-            if (x === 0 || y === 0 || x === this.boardSize - 1 || y === this.boardSize - 1) {
-                if (this.expansionCount < 2) {
-                    this.expandCity();
-                }
-            }
-            this.turnNumber += 1;
-            this.updateGameStatus();
-            this.renderBoard();
-        } else {
-            alert("Invalid coordinates or cell already occupied.");
-        }
-    }
-
-    demolishBuilding() {
-        const coordinates = prompt("Enter coordinates (x y):").split(' ').map(Number);
-        const [x, y] = coordinates;
-        if (0 <= x && x < this.boardSize && 0 <= y && y < this.boardSize && this.board[x][y]) {
-            this.board[x][y] = '';
-            this.turnNumber += 1;
-            this.updateGameStatus();
-            this.renderBoard();
-        } else {
-            alert("Invalid coordinates or no building to demolish.");
-        }
-    }
-
-    renderBoard() {
-        const boardElement = document.getElementById('game-board');
-        boardElement.style.gridTemplateColumns = `repeat(${this.boardSize}, 20px)`;
-        boardElement.innerHTML = '';
-        for (let i = 0; i < this.boardSize; i++) {
-            for (let j = 0; j < this.boardSize; j++) {
-                const cell = document.createElement('div');
-                cell.classList.add('cell');
-                if (this.board[i][j]) {
-                    cell.classList.add(this.board[i][j]);
-                }
-                cell.innerText = this.board[i][j];
-                boardElement.appendChild(cell);
+            if (grid[i][j] !== '') {
+                cell.innerText = grid[i][j];
+                cell.style.backgroundColor = getBuildingColor(grid[i][j]);
             }
         }
     }
 }
 
-const game = new NgeeAnnCityGame();
-
-function startNewGame() {
-    game.startNewGame();
+function selectBuilding(building) {
+    selectedBuilding = building;
+    demolishMode = false;
 }
 
-function loadGame() {
-    game.loadGame();
+function placeBuilding(row, col) {
+    if (!selectedBuilding || grid[row][col] !== '') return;
+
+    grid[row][col] = selectedBuilding;
+    const cell = document.getElementById(`cell-${row}-${col}`);
+    cell.innerText = selectedBuilding;
+    cell.style.backgroundColor = getBuildingColor(selectedBuilding);
+
+    if (row === 0 || row === gridSize - 1 || col === 0 || col === gridSize - 1) {
+        expandGrid();
+    }
+
+    turn++;
+    calculateScore();
+    calculateIncomeAndUpkeep();
+    updateGameInfo();
+    checkEndGame();
 }
 
-function displayHighScores() {
-    const highScores = game.loadHighScores();
-    alert("High Scores:\n" + highScores.join('\n'));
+function demolishBuilding(row, col) {
+    if (grid[row][col] === '') return;
+
+    grid[row][col] = '';
+    const cell = document.getElementById(`cell-${row}-${col}`);
+    cell.innerText = '';
+    cell.style.backgroundColor = '#fff';
+    coins -= 1;
+
+    turn++;
+    calculateScore();
+    calculateIncomeAndUpkeep();
+    updateGameInfo();
+    checkEndGame();
 }
 
-function saveGame() {
-    game.saveGame();
-}
-
-function exitGame() {
-    alert("Exiting game.");
-    window.close();
-}
-
-function buildBuilding() {
-    game.buildBuilding();
-}
-
-function demolishBuilding() {
-    game.demolishBuilding();
+function enableDemolishMode() {
+    selectedBuilding = null;
+    demolishMode = true;
 }
 
 function exitToMainMenu() {
-    document.getElementById('game').style.display = 'none';
-    document.getElementById('main-menu').style.display = 'block';
+    // Logic to exit to main menu
+    alert("Exiting to main menu...");
 }
+
+function getBuildingColor(building) {
+    switch (building) {
+        case 'R': return '#ffcccc';
+        case 'I': return '#ccffcc';
+        case 'C': return '#ccccff';
+        case 'O': return '#ffffcc';
+        case '*': return '#cccccc';
+        default: return '#fff';
+    }
+}
+
+function expandGrid() {
+    const oldGridSize = gridSize;
+    gridSize += 5;
+    const newGrid = Array(gridSize).fill().map(() => Array(gridSize).fill(''));
+
+    for (let i = 0; i < oldGridSize; i++) {
+        for (let j = 0; j < oldGridSize; j++) {
+            newGrid[i + 2][j + 2] = grid[i][j];
+        }
+    }
+
+    grid = newGrid;
+    createGrid();
+}
+
+function calculateScore() {
+    score = 0;
+    for (let i = 0; i < gridSize; i++) {
+        for (let j = 0; j < gridSize; j++) {
+            if (grid[i][j] !== '') {
+                score += getBuildingScore(i, j);
+            }
+        }
+    }
+}
+
+function getBuildingScore(row, col) {
+    const building = grid[row][col];
+    let buildingScore = 0;
+    const adjacentBuildings = getAdjacentBuildings(row, col);
+
+    switch (building) {
+        case 'R':
+            if (adjacentBuildings.includes('I')) {
+                buildingScore = 1;
+            } else {
+                buildingScore += adjacentBuildings.filter(b => b === 'R' || b === 'C').length;
+                buildingScore += adjacentBuildings.filter(b => b === 'O').length * 2;
+            }
+            break;
+        case 'I':
+            buildingScore = grid.flat().filter(b => b === 'I').length;
+            break;
+        case 'C':
+            buildingScore += adjacentBuildings.filter(b => b === 'C').length;
+            break;
+        case 'O':
+            buildingScore += adjacentBuildings.filter(b => b === 'O').length;
+            break;
+        case '*':
+            buildingScore += getConnectedRoadLength(row, col);
+            break;
+    }
+
+    return buildingScore;
+}
+
+function getAdjacentBuildings(row, col) {
+    const directions = [
+        [-1, 0], [1, 0], [0, -1], [0, 1]
+    ];
+    const adjacentBuildings = [];
+
+    directions.forEach(([dx, dy]) => {
+        const newRow = row + dx;
+        const newCol = col + dy;
+        if (newRow >= 0 && newRow < gridSize && newCol >= 0 && newCol < gridSize) {
+            adjacentBuildings.push(grid[newRow][newCol]);
+        }
+    });
+
+    return adjacentBuildings;
+}
+
+function getConnectedRoadLength(row, col) {
+    let length = 0;
+    let visited = new Set();
+    let queue = [[row, col]];
+
+    while (queue.length > 0) {
+        let [r, c] = queue.shift();
+        let key = `${r}-${c}`;
+
+        if (!visited.has(key) && grid[r][c] === '*') {
+            length++;
+            visited.add(key);
+
+            const directions = [
+                [-1, 0], [1, 0], [0, -1], [0, 1]
+            ];
+
+            directions.forEach(([dx, dy]) => {
+                const newRow = r + dx;
+                const newCol = c + dy;
+                if (newRow >= 0 && newRow < gridSize && newCol >= 0 && newCol < gridSize && grid[newRow][newCol] === '*') {
+                    queue.push([newRow, newCol]);
+                }
+            });
+        }
+    }
+
+    return length;
+}
+
+function calculateIncomeAndUpkeep() {
+    income = 0;
+    upkeep = 0;
+
+    for (let i = 0; i < gridSize; i++) {
+        for (let j = 0; j < gridSize; j++) {
+            const building = grid[i][j];
+            if (building !== '') {
+                switch (building) {
+                    case 'R':
+                        income += 1;
+                        if (isResidentialCluster(i, j)) {
+                            upkeep += 1;
+                        }
+                        break;
+                    case 'I':
+                        income += 2;
+                        upkeep += 1;
+                        break;
+                    case 'C':
+                        income += 3;
+                        upkeep += 2;
+                        break;
+                    case 'O':
+                        upkeep += 1;
+                        break;
+                    case '*':
+                        if (!isConnectedRoad(i, j)) {
+                            upkeep += 1;
+                        }
+                        break;
+                }
+            }
+        }
+    }
+
+    profit = income - upkeep;
+    coins += profit;
+    if (profit < 0) {
+        lossCounter++;
+    } else {
+        lossCounter = 0;
+    }
+}
+
+function isResidentialCluster(row, col) {
+    return getAdjacentBuildings(row, col).includes('R');
+}
+
+function isConnectedRoad(row, col) {
+    return getConnectedRoadLength(row, col) > 1;
+}
+
+function updateGameInfo() {
+    document.getElementById('coins').innerText = coins;
+    document.getElementById('turn').innerText = turn;
+    document.getElementById('score').innerText = score;
+    document.getElementById('profit').innerText = profit;
+    document.getElementById('upkeep').innerText = upkeep;
+}
+
+function checkEndGame() {
+    if (lossCounter >= 20) {
+        alert("Game Over! The city has been making a loss for 20 turns.");
+        exitToMainMenu();
+    }
+}
+
+function resizeGameBoard() {
+    const gameBoard = document.getElementById('game-board');
+    const containerWidth = window.innerWidth;
+    const containerHeight = window.innerHeight;
+
+    // Calculate max number of cells that fit into viewport
+    const cellSize = 50; // Size of each cell
+    const maxCols = Math.floor(containerWidth / cellSize);
+    const maxRows = Math.floor(containerHeight / cellSize);
+
+    gameBoard.style.gridTemplateColumns = `repeat(${maxCols}, ${cellSize}px)`;
+    gameBoard.style.gridTemplateRows = `repeat(${maxRows}, ${cellSize}px)`;
+}
+
+window.addEventListener('resize', resizeGameBoard);
+resizeGameBoard(); // Call once to set initial size
+
