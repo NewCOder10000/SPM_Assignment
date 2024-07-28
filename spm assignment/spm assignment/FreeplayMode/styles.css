@@ -1,0 +1,32 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+#main-menu, #game {
+    text-align: center;
+    margin-top: 50px;
+}
+
+#game-board {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 20px);
+    justify-content: center;
+    gap: 2px;
+    margin: 20px 0;
+}
+
+.cell {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.R { background-color: lightblue; }
+.I { background-color: lightgray; }
+.C { background-color: lightgreen; }
+.O { background-color: lightyellow; }
+.star { background-color: lightcoral; }

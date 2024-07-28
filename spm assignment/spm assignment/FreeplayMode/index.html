@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ngee Ann City Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="main-menu">
+        <h1>Main Menu</h1>
+        <button id="start-new-game">Start New Free Play Game</button>
+        <button id="load-game">Load Saved Game</button>
+        <button id="display-high-scores">Display High Scores</button>
+        <button id="exit-game">Exit Game</button>
+    </div>
+    <div id="game" style="display:none;">
+        <h1>Ngee Ann City Game</h1>
+        <div id="game-status">
+            <p id="turn-number"></p>
+            <p id="coins"></p>
+            <p id="score"></p>
+            <p id="profit"></p>
+            <p id="upkeep"></p>
+        </div>
+        <div id="game-board"></div>
+        <div id="game-menu">
+            <button id="build-building">Build a Building</button>
+            <button id="demolish-building">Demolish a Building</button>
+            <button id="save-game">Save Game</button>
+            <button id="exit-to-main-menu">Exit to Main Menu</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

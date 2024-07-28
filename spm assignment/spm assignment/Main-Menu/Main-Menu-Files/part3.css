@@ -1,0 +1,62 @@
+body {
+    border: none;
+    margin: 0;
+    background-color: hsl(0, 0%, 0%);
+    overflow: hidden;
+}
+
+.img-container {
+    position: relative;
+    text-align: center;
+    margin-left: -50px;
+}
+
+.img1 {
+    width: 100%;
+    height: 80%;
+    filter: blur(3px);
+    user-select: all;
+    -webkit-user-drag: none;
+}
+
+.overlay {
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+    text-align: center;
+    align-items: center;
+}
+
+.highscore{
+    width: 500px;
+    height: 550px;
+    border-radius: 30px;
+    border: 2px solid black;
+    background-color: white;
+    margin-top: -700px;
+    align-items: center;
+    text-align: center;
+    font-size: larger;
+    font-weight: bold;
+    background-image: url(futuristic-blue-1.jpg);
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 20px;
+}
+
+.highscores {
+    padding: 0;
+    list-style-type: none;
+    color: white;
+}
+
+.highscores li {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px;
+    font-size: large;
+    font-weight: bold;
+}

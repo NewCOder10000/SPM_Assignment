@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="styles/ArcadeStyles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcade Mode | Ngee Ann City</title>
+</head>
+<body>
+    <div class="content">
+        <div>
+            <p>Turn
+            <span id = "turn">1</span>
+            </p>
+        </div>
+        <div>
+            <p>Score: 
+            <span id = "score">0</span>
+            </p>
+        </div>
+        <div class = "coinImage">
+            <img src="./icon/coin.png">
+            <div id = "coins">0
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <button class="item6" onclick ="displaySaveGame()">Save Game</button>
+        <button class="item6"  onclick="location.href='../index2.html'" >Exit To Main Menu</button>
+    </div>
+    <div class="content">
+    <img src="./icon/shovel.png" id="image" draggable="true" ondragstart="destroy(event)">
+    </div>
+    <div class="content">
+    <h4>Drag and drop a building onto grid to score points</h4>
+    </div>
+    <div class="content">
+
+    </div>
+    <div class="content">
+        <div id="randomBuilding-grid">
+            <div id="randomBuilding1"> </div>
+            <div id="randomBuilding2"> </div> 
+        </div>
+    </div>
+    <div class="content">
+        <div id="gameField-grid">
+        </div>
+    </div> 
+    <script src="./script/ArcadeScript.js"></script>
+</body>
+</html>
