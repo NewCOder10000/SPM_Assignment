@@ -10,7 +10,7 @@ const finalScoreElement = document.getElementById("finalscore");
 const savePopup = document.getElementById("savegame-popup");
 const overwritePrompt = document.getElementById("repeat-file");
 
-let totalCoins = 4;
+let totalCoins = 16;
 let currentTurn = 1;
 let totalScore = 0;
 let gameEnded = false;
