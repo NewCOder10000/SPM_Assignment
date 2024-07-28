@@ -18,7 +18,7 @@
     width: 150px;
     border: 1px solid black;
     aspect-ratio: 2;
-    }
+}
 
 #randomBuilding1, #randomBuilding2{
     border: 2px solid black;
@@ -35,6 +35,7 @@ h2{
 }
 #image{
     width: 70px;
+    margin-bottom: 20px;
 }
 .item6 {
     width: 30%;
@@ -76,4 +77,44 @@ h2{
     box-shadow: 3px 3px #666;
     box-shadow: 4px 4px #999;
     color: darkgrey;
+}
+#gameover-popup {
+    width: 50vw;
+    height: 50vh;
+    z-index: 1;
+    position: absolute; 
+    top: 50%;
+    left: 25%;
+    background-color: aliceblue;
+    border: 5px solid black;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#savegame-popup {
+    width: 50vw;
+    height: 50vh;
+    z-index: 1;
+    position: fixed; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: aliceblue;
+    border: 5px solid black;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+
+#sname {
+    width: 200px;
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+#finalscore{
+    font-size: 50px;
 }

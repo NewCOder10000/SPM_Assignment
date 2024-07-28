@@ -4,7 +4,6 @@ body {
     background-color: hsl(0, 0%, 0%);
     overflow: hidden;
 }
-
 .img-container {
     position: relative;
     text-align: center;
@@ -18,7 +17,6 @@ body {
     user-select: all;
     -webkit-user-drag: none;
 }
-
 .overlay {
     position: absolute;
     top: 65%;
@@ -68,6 +66,7 @@ body {
     text-decoration: none;
     color: darkgrey;
 }
+
 
 .start:hover {
     color: hsl(0, 0%, 60%);

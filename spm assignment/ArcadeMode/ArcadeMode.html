@@ -19,23 +19,20 @@
             </p>
         </div>
         <div class = "coinImage">
-            <img src="./icon/coin.png">
+            <img src="./background/coin.png">
             <div id = "coins">0
             </div>
         </div>
     </div>
     <div class="content">
-        <button class="item6" onclick ="displaySaveGame()">Save Game</button>
+        <button class="item6" onclick =" displaySaveGame()">Save Game</button>
         <button class="item6"  onclick="location.href='../index2.html'" >Exit To Main Menu</button>
     </div>
     <div class="content">
-    <img src="./icon/shovel.png" id="image" draggable="true" ondragstart="destroy(event)">
-    </div>
+        <h4>Drag and drop a building onto grid to score points</h4>
+        </div>
     <div class="content">
-    <h4>Drag and drop a building onto grid to score points</h4>
-    </div>
-    <div class="content">
-
+    <img src="./background/shovel.png" id="image" draggable="true" ondragstart="setDestroyAction(event)">
     </div>
     <div class="content">
         <div id="randomBuilding-grid">
@@ -47,6 +44,24 @@
         <div id="gameField-grid">
         </div>
     </div> 
+    <div id="gameover-popup">
+        <h1>Final Score</h1>
+        <p id="finalscore"></p>
+        <button class="item6" onclick="window.location.href='../index2.html';">Exit</button>
+        <!-- Add any other elements needed for the game over popup -->
+    </div>
+
+    <div id="savegame-popup">
+        <input type="text" id="sname" placeholder="Enter save name">
+        <button onclick="saveGame()">Save Game</button>
+        <!-- Add any other elements needed for the save game popup -->
+    </div>
+
+    <div id="repeat-file">
+        <p id="repeat-title">Another save file with the same name exists. Do you want to override it?</p>
+        <button onclick="saveGame(true)">Yes</button>
+        <button onclick="cancelSave()">No</button>
+    </div>
     <script src="./script/ArcadeScript.js"></script>
 </body>
 </html>
