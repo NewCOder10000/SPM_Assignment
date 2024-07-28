@@ -1,3 +1,9 @@
+body{
+    background-image: url(../background//vetal_s_shot_copy_2.png);
+    background-size: cover; /* Ensures the image covers the whole body */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat;
+}
 #gameField-grid{
     display: grid;
     width: 50%; 
